@@ -91,7 +91,7 @@ if st.button("Know your IAQ"):
     
     # Try to write to CSV and catch any exceptions
     try:
-        X.to_csv("database.csv", mode='a', header=False, index=False)
+        X.to_csv("database2.csv", mode='a', header=False, index=False)
         st.success("Data has been successfully saved to database.csv.")
     except Exception as e:
         st.error(f"An error occurred while saving data: {e}")
