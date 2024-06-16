@@ -2,7 +2,7 @@
 import streamlit as st
 import pandas as pd
 from PIL import Image
-import joblib
+
 
 # In[2] custom font
 # Define custom CSS to set font size, font style, and font weight
@@ -83,8 +83,6 @@ st.text_area("Do you have any comments?", label_visibility='collapsed')
 # If button is pressed
 if st.button("Know your IAQ"):
     
-    # Unpickle classifier
-    clf = joblib.load("iaq.pkl")
     
     # Store inputs into dataframe
     X = pd.DataFrame([[volume, students, occtime, openwindow, windowtime, opendoor, doortime]], 
