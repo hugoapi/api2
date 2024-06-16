@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Oct 31 21:51:35 2022
-
-@author: 3460
-"""
-
 # In[1] import packages
 import streamlit as st
 import pandas as pd
@@ -35,7 +28,12 @@ custom_css = """
 # Inject custom CSS into the app using st.markdown
 st.markdown(custom_css, unsafe_allow_html=True)
 
+# In[2] webapp
+# Title
+#img = Image.open("IAQ4EDU.png")
+#st. image(img)
 
+# In[3] webapp
 
 # Selectbox
 Season = "Season"
@@ -86,7 +84,7 @@ st.text_area("Do you have any comments?", label_visibility='collapsed')
 if st.button("Know your IAQ"):
     
     # Unpickle classifier
-    clf = joblib.load("model.pkl")
+    clf = joblib.load("iaq.pkl")
     
     # Store inputs into dataframe
     X = pd.DataFrame([[volume, students, occtime, openwindow, windowtime, opendoor, doortime]], 
@@ -94,15 +92,6 @@ if st.button("Know your IAQ"):
                                 "OPENINNG_WINDOW_TIME", "OPENING_SIZE_DOOR", 
                                 "OPENING_DOOR_TIME"])
     
-    # Get prediction
-    prediction = clf.predict(X)[0]
-    
-    # Output prediction
-    if prediction == 1:
-        st.text(f"Your IAQ level is：Good")
-    if prediction == 2:
-        st.text(f"Your IAQ level is：Acceptable")
-    if prediction == 3:
-        st.text(f"Your IAQ level is：Bad")
-        
+
+     X.to_csv("C:\Users\hugob\OneDrive\Bureau\GII\stage_2e_année\code\1ere_API\database.csv", mode='a', header=False, index=False)
     
