@@ -83,11 +83,16 @@ st.text_area("Do you have any comments?", label_visibility='collapsed')
 # If button is pressed
 if st.button("Know your IAQ"):
     
-    
     # Store inputs into dataframe
     X = pd.DataFrame([[volume, students, occtime, openwindow, windowtime, opendoor, doortime]], 
                      columns = ["VOLUME", "TOTAL_STUDENTS", "OCCUPIED_TIME", "OPENING_SIZE_WINDOW",
                                 "OPENINNG_WINDOW_TIME", "OPENING_SIZE_DOOR", 
                                 "OPENING_DOOR_TIME"])
-    X.to_csv("database.csv", mode='a', header=False, index=False)
+    
+    # Try to write to CSV and catch any exceptions
+    try:
+        X.to_csv("database2.csv", mode='a', header=False, index=False)
+        st.success("Data has been successfully saved to database.csv.")
+    except Exception as e:
+        st.error(f"An error occurred while saving data: {e}")
 
