@@ -35,12 +35,7 @@ custom_css = """
 # Inject custom CSS into the app using st.markdown
 st.markdown(custom_css, unsafe_allow_html=True)
 
-# In[2] webapp
-# Title
-#img = Image.open("IAQ4EDU.png")
-#st. image(img)
 
-# In[3] webapp
 
 # Selectbox
 Season = "Season"
