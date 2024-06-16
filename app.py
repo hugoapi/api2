@@ -89,5 +89,5 @@ if st.button("Know your IAQ"):
                      columns = ["VOLUME", "TOTAL_STUDENTS", "OCCUPIED_TIME", "OPENING_SIZE_WINDOW",
                                 "OPENINNG_WINDOW_TIME", "OPENING_SIZE_DOOR", 
                                 "OPENING_DOOR_TIME"])
-    X.to_csv(r"C:\Users\hugob\OneDrive\Bureau\GII\stage_2e_année\code\1ere_API\database.csv", mode='a', header=False, index=False)
+    X.to_csv("database.csv", mode='a', header=False, index=False)
 
