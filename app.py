@@ -3,6 +3,7 @@ import streamlit as st
 import pandas as pd
 from PIL import Image
 import joblib
+import os
 
 # In[2] custom font
 # Define custom CSS to set font size, font style, and font weight
