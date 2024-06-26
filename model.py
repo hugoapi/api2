@@ -33,4 +33,4 @@ print('R2: %.4f' % r2_score(test_labels, rfr_y_pred))
 
 # In[4] load pkl
 import joblib
-joblib.dump(iaq, "iaq.pkl")
+joblib.dump(iaq, "model.pkl")
