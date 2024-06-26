@@ -96,7 +96,7 @@ def load_model(model_path):
         return None
 
 # Chemin du modèle
-model_path = "iaq.pkl"
+model_path = "model.pkl"
 
 # Charger le modèle
 model = load_model(model_path)
