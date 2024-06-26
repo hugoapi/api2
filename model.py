@@ -9,7 +9,7 @@ Created on Mon Oct 31 21:43:32 2022
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 
-df = pd.read_csv("C:/Users/miao3/Desktop/ML Algorithm/Web/IAQ4EDU_app_prototype/IAQ4EDU.csv")
+df = pd.read_csv(""C:\Users\hugob\OneDrive\Bureau\GII\stage_2e_année\App_example\data.csv"")
 df.info()
 
 # In[2] dataset
@@ -33,4 +33,4 @@ print('R2: %.4f' % r2_score(test_labels, rfr_y_pred))
 
 # In[4] load pkl
 import joblib
-joblib.dump(iaq, "iaq.pkl")
+joblib.dump(iaq, "model.pkl")
