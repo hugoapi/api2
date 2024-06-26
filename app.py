@@ -80,26 +80,75 @@ Comments = "Do you have any comments?"
 st.markdown(f"<span style='font-size: 18px; font-weight: bold;'>{Comments}</span>", unsafe_allow_html=True)
 st.text_area("Do you have any comments?", label_visibility='collapsed')
 
-# If button is pressed
-if st.button("Know your IAQ"):
-    
-    # Unpickle classifier
-    clf = joblib.load("model.pkl")
-    
-    # Store inputs into dataframe
-    X = pd.DataFrame([[volume, students, occtime, openwindow, windowtime, opendoor, doortime]], 
-                     columns = ["VOLUME", "TOTAL_STUDENTS", "OCCUPIED_TIME", "OPENING_SIZE_WINDOW",
-                                "OPENINNG_WINDOW_TIME", "OPENING_SIZE_DOOR", 
-                                "OPENING_DOOR_TIME"])
-    
-    # Get prediction
-    prediction = clf.predict(X)[0]
-    
-    # Output prediction
-    if prediction == 1:
-        st.text(f"Your IAQ level is：Good")
-    if prediction == 2:
-        st.text(f"Your IAQ level is：Acceptable")
-    if prediction == 3:
-        st.text(f"Your IAQ level is：Bad")
-        
+# Fonction pour vérifier et charger le modèle
+def load_model(model_path):
+    try:
+        if os.path.isfile(model_path):
+            model = joblib.load(model_path)
+            st.success(f"Modèle {model_path} chargé avec succès.")
+            return model
+        else:
+            st.error(f"Le fichier {model_path} n'a pas été trouvé.")
+            return None
+    except Exception as e:
+        st.error(f"Erreur lors du chargement du modèle: {str(e)}")
+        return None
+
+# Chemin du modèle
+model_path = "iaq.pkl"
+
+# Charger le modèle
+model = load_model(model_path)
+
+if model is not None:
+    # Font personnalisée (optionnelle, pour le style de l'interface utilisateur)
+    custom_css = """
+        <style>
+            body {
+                font-size: 18px !important;
+                font-family: CenturyGothic, sans-serif !important;
+                font-weight: bold !important;
+            }
+        </style>
+    """
+    st.markdown(custom_css, unsafe_allow_html=True)
+
+    # Titre
+    st.title("Prédicteur de Niveau de Qualité de l'Air Intérieur (IAQ)")
+
+    # Champs de saisie
+    Season = st.selectbox("Saison", ("Printemps", "Été", "Hiver"))
+    volume = st.number_input("Volume de la salle de classe", min_value=0.00, format='%.2f')
+    students = st.number_input("Nombre d'étudiants", min_value=0, max_value=100, format='%d')
+    occtime = st.number_input("Durée d'occupation (heures)", min_value=0, format='%d')
+    openwindow = st.number_input("Surface d'ouverture des fenêtres (m²)", min_value=0.00, format='%.2f')
+    windowtime = st.number_input("Durée d'ouverture des fenêtres (heures)", min_value=0, format='%d')
+    opendoor = st.number_input("Surface d'ouverture des portes (m²)", min_value=0.00, format='%.2f')
+    doortime = st.number_input("Durée d'ouverture des portes (heures)", min_value=0, format='%d')
+    comments = st.text_area("Avez-vous des commentaires ?")
+
+    # Bouton pour lancer la prédiction
+    if st.button("Connaître votre IAQ"):
+        # Préparer les données d'entrée
+        X = pd.DataFrame([[volume, students, occtime, openwindow, windowtime, opendoor, doortime]], 
+                         columns=["VOLUME", "TOTAL_STUDENTS", "OCCUPIED_TIME", "OPENING_SIZE_WINDOW",
+                                  "OPENINNG_WINDOW_TIME", "OPENING_SIZE_DOOR", 
+                                  "OPENING_DOOR_TIME"])
+
+        try:
+            # Obtenir la prédiction
+            prediction = model.predict(X)[0]
+
+            # Afficher la prédiction
+            if prediction == 1:
+                st.success("Votre niveau de qualité de l'air est : Bon")
+            elif prediction == 2:
+                st.warning("Votre niveau de qualité de l'air est : Acceptable")
+            elif prediction == 3:
+                st.error("Votre niveau de qualité de l'air est : Mauvais")
+            else:
+                st.error("Impossible de déterminer le niveau de qualité de l'air")
+        except Exception as e:
+            st.error(f"Erreur lors de la prédiction: {str(e)}")
+else:
+    st.error("Modèle non chargé. Veuillez vérifier le fichier modèle et réessayer.")
