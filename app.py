@@ -84,7 +84,7 @@ st.text_area("Do you have any comments?", label_visibility='collapsed')
 if st.button("Know your IAQ"):
     
     # Unpickle classifier
-    clf = joblib.load("model.pkl")
+    clf = joblib.load("iaq.pkl")
     
     # Store inputs into dataframe
     X = pd.DataFrame([[volume, students, occtime, openwindow, windowtime, opendoor, doortime]], 
