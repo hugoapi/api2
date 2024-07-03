@@ -115,19 +115,6 @@ if model is not None:
     """
     st.markdown(custom_css, unsafe_allow_html=True)
 
-    # Titre
-    st.title("Prédicteur de Niveau de Qualité de l'Air Intérieur (IAQ)")
-
-    # Champs de saisie
-    Season = st.selectbox("Saison", ("Printemps", "Été", "Hiver"))
-    volume = st.number_input("Volume de la salle de classe", min_value=0.00, format='%.2f')
-    students = st.number_input("Nombre d'étudiants", min_value=0, max_value=100, format='%d')
-    occtime = st.number_input("Durée d'occupation (heures)", min_value=0, format='%d')
-    openwindow = st.number_input("Surface d'ouverture des fenêtres (m²)", min_value=0.00, format='%.2f')
-    windowtime = st.number_input("Durée d'ouverture des fenêtres (heures)", min_value=0, format='%d')
-    opendoor = st.number_input("Surface d'ouverture des portes (m²)", min_value=0.00, format='%.2f')
-    doortime = st.number_input("Durée d'ouverture des portes (heures)", min_value=0, format='%d')
-    comments = st.text_area("Avez-vous des commentaires ?")
 
     # Bouton pour lancer la prédiction
     if st.button("Connaître votre IAQ"):
