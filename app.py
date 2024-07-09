@@ -17,10 +17,10 @@ custom_css = """
 """
 
 st.markdown(custom_css, unsafe_allow_html=True)
-
+st.set_page_config(layout="wide")
 # Title with image
 img_path = "IAQ4EDU.png"
-with st.sidebar:
+st.sidebar.image(img_path, caption="Streamlit Logo")
     if os.path.exists(img_path):
         img = Image.open(img_path)
         st.image(img)
