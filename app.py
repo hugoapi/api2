@@ -20,11 +20,12 @@ st.markdown(custom_css, unsafe_allow_html=True)
 
 # Title with image
 img_path = "IAQ4EDU.png"
-if os.path.exists(img_path):
-    img = Image.open(img_path)
-    st.image(img)
-else:
-    st.error(f"L'image {img_path} n'a pas été trouvée.")
+with st.sidebar:
+    if os.path.exists(img_path):
+        img = Image.open(img_path)
+        st.image(img)
+    else:
+        st.error(f"L'image {img_path} n'a pas été trouvée.")
 
 # In[2] webapp
 # Title
